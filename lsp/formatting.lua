@@ -16,4 +16,10 @@ return {
 		-- enable all other clients
 		return true
 	end,
+
+	cmd = {
+		"rustup",
+		"run",
+		"run-analyzer",
+	},
 }

@@ -14,3 +14,10 @@ vim.api.nvim_create_autocmd({ "FileWritePost", "BufWritePost" }, {
 	end,
 })
 
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+-- 	group = vim.api.nvim_create_augroup("neo-tree-hover-on-file", { clear = true }),
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.api.nvim_command("Neotree action=show %")
+-- 	end,
+-- })
