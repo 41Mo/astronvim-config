@@ -15,6 +15,10 @@ return {
 		end,
 	},
 	{
+		"lambdalisue/suda.vim",
+		lazy = false,
+	},
+	{
 		"kylechui/nvim-surround",
 		event = "VeryLazy",
 		config = function()
