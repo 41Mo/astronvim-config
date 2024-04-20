@@ -1,5 +1,4 @@
 return {
-	{ "ldelossa/nvim-dap-projects" },
 	{
 		"akinsho/bufferline.nvim",
 		version = "v3.*",
@@ -19,16 +18,14 @@ return {
 		lazy = false,
 	},
 	{
+		"christoomey/vim-tmux-navigator",
+		lazy = false,
+	},
+	{
 		"kylechui/nvim-surround",
 		event = "VeryLazy",
 		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
+			require("nvim-surround").setup()
 		end,
-	},
-	"williamboman/mason-lspconfig.nvim",
-	opts = {
-		ensure_installed = { "rust_analyzer" },
 	},
 }
