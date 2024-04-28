@@ -32,6 +32,7 @@ return {
 		"mrcjkb/rustaceanvim",
 		version = "^4", -- Recommended
 		ft = { "rust" },
+		lazy = false,
 		opts = {
 			server = {
 				on_attach = function(_, bufnr)
@@ -41,9 +42,15 @@ return {
 					vim.keymap.set("n", "<leader>lf", function()
 						vim.lsp.buf.format({ async = true })
 					end, { desc = "Format", buffer = bufnr })
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+					vim.keymap.set("n", "<leader>lD", function()
+						require("telescope.builtin").diagnostics()
+					end, { desc = "Search diagnostics" })
+					vim.keymap.set("n", "<leader>ld", function()
+						vim.diagnostic.open_float()
+					end, { desc = "Hover diagnostics" })
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+					vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
+					vim.keymap.set("n", "K", vim.lsp.buf.hover)
 				end,
 				default_settings = {
 					-- rust-analyzer language server configuration
@@ -51,7 +58,7 @@ return {
 						cargo = {
 							allFeatures = false,
 							noDefaultFeatures = true,
-							loadOutDirsFromCheck = true,
+							-- loadOutDirsFromCheck = true,
 							allTargets = false,
 						},
 						check = {
@@ -65,11 +72,17 @@ return {
 							workspace = false,
 						},
 						procMacro = {
-							enable = false,
+							enable = true,
 							ignored = {},
 						},
 					},
 				},
+				settings = function(project_root)
+					local ra = require("rustaceanvim.config.server")
+					return ra.load_rust_analyzer_settings(vim.fn.getcwd(), {
+						settings_file_pattern = "rust-analyzer.json",
+					})
+				end,
 			},
 		},
 		config = function(_, opts)
